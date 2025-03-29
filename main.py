@@ -3,10 +3,8 @@ from dotenv import load_dotenv
 from azure.identity import ClientSecretCredential
 from azure.mgmt.network import NetworkManagementClient
 
-# Load environment variables from .env file
 load_dotenv()
 
-# Retrieve credentials from environment variables
 tenant_id = os.getenv("AZURE_TENANT_ID")
 client_id = os.getenv("AZURE_CLIENT_ID")
 client_secret = os.getenv("AZURE_CLIENT_SECRET")
@@ -14,13 +12,10 @@ subscription_id = os.getenv("AZURE_SUBSCRIPTION_ID")
 resource_group_name = os.getenv("AZURE_RESOURCE_GROUP")
 firewall_policy_name = os.getenv("AZURE_FIREWALL_POLICY")
 
-# Authenticate using ClientSecretCredential
 credential = ClientSecretCredential(tenant_id, client_id, client_secret)
 
-# Initialize the Network Management Client
 network_client = NetworkManagementClient(credential, subscription_id)
 
-# Get all rule collection groups in the firewall policy
 rule_collection_groups = network_client.firewall_policy_rule_collection_groups.list(
     resource_group_name, firewall_policy_name
 )
