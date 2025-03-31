@@ -12,7 +12,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "example" {
   # Application Rule Collection with destination_fqdns
   application_rule_collection {
     name     = "app_rule_collection1"
-    priority = 100
+    priority = 5500
     action   = "Allow"
     rule {
       name = "app_rule1"
@@ -32,7 +32,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "example" {
   # Application Rule Collection with fqdn_tags
   application_rule_collection {
     name     = "app_rule_collection2"
-    priority = 200
+    priority = 5000
     action   = "Deny"
     rule {
       name = "app_rule2"
@@ -48,7 +48,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "example" {
   # Network Rule Collection
   network_rule_collection {
     name     = "network_rule_collection1"
-    priority = 300
+    priority = 3000
     action   = "Allow"
     rule {
       name                  = "network_rule1"
@@ -69,7 +69,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "example" {
   # NAT Rule Collection
   nat_rule_collection {
     name     = "nat_rule_collection1"
-    priority = 400
+    priority = 1000
     action   = "Dnat"
     rule {
       name                = "nat_rule1"
