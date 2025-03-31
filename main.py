@@ -12,17 +12,12 @@ from azure.mgmt.network.models import (
     FirewallPolicyNatRuleCollection
 )
 
-load_dotenv()
+def extract_firewall_rules(tenant_id, client_id, client_secret, subscription_id, resource_group, policy_name):
+    print("Tenant ID:", tenant_id)
+    print("Client ID:", client_id)
+    print("Client Secret:", client_secret)
+    print("Subscription ID:", subscription_id)
 
-tenant_id = os.getenv("AZURE_TENANT_ID")
-client_id = os.getenv("AZURE_CLIENT_ID")
-client_secret = os.getenv("AZURE_CLIENT_SECRET")
-subscription_id = os.getenv("AZURE_SUBSCRIPTION_ID")
-resource_group = os.getenv("AZURE_RESOURCE_GROUP")
-policy_name = os.getenv("AZURE_FIREWALL_POLICY")
-
-
-def extract_firewall_rules():
     credential = ClientSecretCredential(tenant_id, client_id, client_secret)
     network_client = NetworkManagementClient(credential, subscription_id)
     
@@ -162,4 +157,13 @@ def print_rule(rule_data):
             print(f"        - Translated FQDN: {rule_data['translated']['fqdn']}")
 
 if __name__ == "__main__":
-    extract_firewall_rules()
+    load_dotenv()
+
+    tenant_id = os.getenv("AZURE_TENANT_ID").strip('"')
+    client_id = os.getenv("AZURE_CLIENT_ID").strip('"')
+    client_secret = os.getenv("AZURE_CLIENT_SECRET").strip('"')
+    subscription_id = os.getenv("AZURE_SUBSCRIPTION_ID").strip('"')
+    resource_group = os.getenv("AZURE_RESOURCE_GROUP").strip('"')
+    policy_name = os.getenv("AZURE_FIREWALL_POLICY").strip('"')
+
+    extract_firewall_rules(tenant_id, client_id, client_secret, subscription_id, resource_group, policy_name)
